@@ -6,6 +6,8 @@ from pathlib import Path
 
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent
+
 PRODUCTS = {
     "Laptop": 55000,
     "Phone": 22000,
@@ -49,7 +51,7 @@ def generate(n_rows: int = 1000, seed: int = 42) -> pd.DataFrame:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--rows", type=int, default=1000)
-    parser.add_argument("--out", default="data/raw/sales_raw.csv")
+    parser.add_argument("--out", default=str(ROOT / "data/raw/sales_raw.csv"))
     args = parser.parse_args()
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

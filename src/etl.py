@@ -9,6 +9,8 @@ import pandas as pd
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("etl")
 
+ROOT = Path(__file__).resolve().parent.parent
+
 REQUIRED_COLUMNS = {
     "order_id", "order_date", "customer_id", "city",
     "product", "quantity", "unit_price",
@@ -72,8 +74,8 @@ def run(raw_path: str, db_path: str, processed_dir: str) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--raw", default="data/raw/sales_raw.csv")
-    parser.add_argument("--db", default="data/warehouse.db")
-    parser.add_argument("--processed", default="data/processed")
+    parser.add_argument("--raw", default=str(ROOT / "data/raw/sales_raw.csv"))
+    parser.add_argument("--db", default=str(ROOT / "data/warehouse.db"))
+    parser.add_argument("--processed", default=str(ROOT / "data/processed"))
     args = parser.parse_args()
     print(run(args.raw, args.db, args.processed))
