@@ -1,8 +1,11 @@
 """Run the analytics queries against the warehouse and print results."""
 import argparse
 import sqlite3
+from pathlib import Path
 
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def main(db_path: str, sql_path: str) -> None:
@@ -16,7 +19,7 @@ def main(db_path: str, sql_path: str) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--db", default="data/warehouse.db")
-    parser.add_argument("--sql", default="sql/analytics.sql")
+    parser.add_argument("--db", default=str(ROOT / "data/warehouse.db"))
+    parser.add_argument("--sql", default=str(ROOT / "sql/analytics.sql"))
     args = parser.parse_args()
     main(args.db, args.sql)
